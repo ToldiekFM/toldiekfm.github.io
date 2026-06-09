@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mijn Audio Stream</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#111;
+    color:white;
+    text-align:center;
+    margin:0;
+    padding:0;
+}
+
+header{
+    background:#1e1e1e;
+    padding:20px;
+}
+
+.logo{
+    width:150px;
+    border-radius:10px;
+}
+
+.container{
+    max-width:800px;
+    margin:auto;
+    padding:20px;
+}
+
+.player{
+    background:#222;
+    padding:20px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+.playlist{
+    list-style:none;
+    padding:0;
+}
+
+.playlist li{
+    padding:12px;
+    margin:5px 0;
+    background:#333;
+    cursor:pointer;
+    border-radius:5px;
+}
+
+.playlist li:hover{
+    background:#555;
+}
+
+button{
+    padding:10px 20px;
+    margin:5px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.play{
+    background:#00aa55;
+    color:white;
+}
+
+.pause{
+    background:#cc3333;
+    color:white;
+}
+
+.live{
+    background:#222;
+    padding:20px;
+    border-radius:10px;
+}
+
+footer{
+    margin-top:30px;
+    padding:20px;
+    background:#1e1e1e;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="logo.png" class="logo" alt="Logo">
+    <h1>Mijn Audio Stream</h1>
+    <p>Muziek, podcasts en live audio</p>
+</header>
+
+<div class="container">
+
+<div class="player">
+
+<h2>🎵 Muziekspeler</h2>
+
+<audio id="audioPlayer" controls style="width:100%;">
+    <source src="muziek1.mp3" type="audio/mpeg">
+</audio>
+
+<br><br>
+
+<button class="play" onclick="playAudio()">Play</button>
+<button class="pause" onclick="pauseAudio()">Pause</button>
+
+</div>
+
+<h2>Afspeellijst</h2>
+
+<ul class="playlist">
+    <li onclick="loadTrack('muziek1.mp3')">Nummer 1</li>
+    <li onclick="loadTrack('muziek2.mp3')">Nummer 2</li>
+    <li onclick="loadTrack('muziek3.mp3')">Nummer 3</li>
+</ul>
+
+<div class="live">
+
+<h2>📻 Live Stream</h2>
+
+<audio controls style="width:100%;">
+    <source src="https://jouw-stream-url" type="audio/mpeg">
+</audio>
+
+<p>Vervang de stream-url door je eigen Icecast/Shoutcast stream.</p>
+
+</div>
+
+</div>
+
+<footer>
+© 2026 Mijn Audio Stream
+</footer>
+
+<script>
+
+const player = document.getElementById("audioPlayer");
+
+const playlist = [
+    "muziek1.mp3",
+    "muziek2.mp3",
+    "muziek3.mp3"
+];
+
+let currentTrack = 0;
+
+function loadTrack(track){
+    player.src = track;
+    player.play();
+}
+
+function playAudio(){
+    player.play();
+}
+
+function pauseAudio(){
+    player.pause();
+}
+
+player.addEventListener("ended", function(){
+
+    currentTrack++;
+
+    if(currentTrack >= playlist.length){
+        currentTrack = 0;
+    }
+
+    player.src = playlist[currentTrack];
+    player.play();
+
+});
+
+</script>
+
+</body>
+</html>
