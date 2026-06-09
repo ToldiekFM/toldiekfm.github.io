@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlueWave Radio</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Segoe UI, Arial, sans-serif;
+    background:#0a0a0a;
+    color:white;
+}
+
+header{
+    background:linear-gradient(90deg,#0055ff,#00aaff);
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:2rem;
+    font-weight:bold;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:20px;
+}
+
+.hero{
+    text-align:center;
+    padding:50px 20px;
+}
+
+.hero img{
+    width:250px;
+    max-width:90%;
+    border-radius:15px;
+    box-shadow:0 0 25px #008cff;
+}
+
+.now-playing{
+    margin-top:20px;
+    font-size:1.4rem;
+    color:#4db8ff;
+}
+
+.main-player{
+    max-width:900px;
+    margin:30px auto;
+    background:#111;
+    padding:25px;
+    border-radius:15px;
+    border:1px solid #0066ff;
+}
+
+audio{
+    width:100%;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+    max-width:1200px;
+    margin:20px auto;
+    padding:20px;
+}
+
+.card{
+    background:#111;
+    border:1px solid #0044cc;
+    border-radius:15px;
+    padding:20px;
+}
+
+.card h2{
+    margin-bottom:15px;
+    color:#4db8ff;
+}
+
+.playlist li{
+    list-style:none;
+    padding:12px;
+    margin-bottom:10px;
+    background:#1a1a1a;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.playlist li:hover{
+    background:#003399;
+}
+
+.schedule-item{
+    padding:12px;
+    margin-bottom:10px;
+    background:#1a1a1a;
+    border-radius:8px;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    background:#050505;
+    margin-top:40px;
+    color:#888;
+}
+
+@media(max-width:768px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        flex-direction:column;
+        gap:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🎙 BlueWave Radio</div>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Programma</a>
+        <a href="#">Nieuws</a>
+        <a href="#">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+
+    <img src="logo.png" alt="Radio Logo">
+
+    <div class="now-playing">
+        NU SPEELT: DJ Night Mix
+    </div>
+
+</section>
+
+<div class="main-player">
+
+    <h2>📻 Live Stream</h2>
+
+    <audio controls autoplay>
+        <source src="https://jouw-stream-url" type="audio/mpeg">
+    </audio>
+
+</div>
+
+<div class="grid">
+
+    <div class="card">
+
+        <h2>🎵 Verzoeken & Tracks</h2>
+
+        <ul class="playlist">
+            <li onclick="playTrack('muziek1.mp3')">Top Hit 1</li>
+            <li onclick="playTrack('muziek2.mp3')">Top Hit 2</li>
+            <li onclick="playTrack('muziek3.mp3')">Top Hit 3</li>
+        </ul>
+
+        <audio id="trackPlayer" controls style="margin-top:15px;width:100%;"></audio>
+
+    </div>
+
+    <div class="card">
+
+        <h2>📅 Programmaschema</h2>
+
+        <div class="schedule-item">
+            08:00 - Morning Show
+        </div>
+
+        <div class="schedule-item">
+            12:00 - Lunch Beats
+        </div>
+
+        <div class="schedule-item">
+            18:00 - Drive Time
+        </div>
+
+        <div class="schedule-item">
+            21:00 - Night Mix
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 BlueWave Radio | Altijd muziek, altijd live
+</footer>
+
+<script>
+
+function playTrack(track){
+    const player = document.getElementById('trackPlayer');
+    player.src = track;
+    player.play();
+}
+
+</script>
+
+</body>
+</html>
