@@ -251,7 +251,7 @@ gap:15px;
 
 <h1>Toldiek FM</h1>
 
-<p>Goeiededag i-j luustert noar de Toldiek *FM*</p>
+<p>Goeiedag i-j luustert noar de Toldiek *FM*</p>
 
 <button class="live-button">
 🔴 Luister Live
@@ -330,7 +330,13 @@ Naam artiest
 <button type="submit">
 Versturen
 </button>
-
+<form action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="1fddc1fc-3373-4550-88dc-6b5a64a3fbfa">
+  <input type="text" name="name" required>
+  <input type="email" name="email" required>
+  <textarea name="message" required></textarea>
+  <button type="submit">Submit</button>
+</form>
 </form>
 
 </div>
