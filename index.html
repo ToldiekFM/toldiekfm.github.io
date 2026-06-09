@@ -3,3 +3,425 @@
 <audio controls autoplay>
   <source src="https://stream.zeno.fm/2kkn8y9qrv8uv" type="audio/mpeg">
 </audio>
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlueWave Radio</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<style>
+
+:root{
+--blue:#008cff;
+--dark:#0a0a0a;
+--card:#151515;
+--light:#ffffff;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:Arial, sans-serif;
+background:var(--dark);
+color:var(--light);
+}
+
+header{
+background:linear-gradient(90deg,#003399,#0099ff);
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{
+font-size:2rem;
+font-weight:bold;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:25px;
+}
+
+.hero{
+height:500px;
+background:url('banner.jpg') center/cover;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+}
+
+.hero h1{
+font-size:4rem;
+text-shadow:0 0 20px black;
+}
+
+.hero p{
+font-size:1.3rem;
+margin-top:10px;
+}
+
+.live-button{
+margin-top:25px;
+padding:15px 35px;
+background:var(--blue);
+border:none;
+border-radius:30px;
+font-size:1rem;
+color:white;
+cursor:pointer;
+}
+
+.container{
+max-width:1300px;
+margin:auto;
+padding:40px 20px;
+}
+
+.section-title{
+font-size:2rem;
+margin-bottom:25px;
+color:var(--blue);
+}
+
+.card{
+background:var(--card);
+padding:25px;
+border-radius:15px;
+margin-bottom:25px;
+border:1px solid #222;
+}
+
+.player audio{
+width:100%;
+}
+
+.nowplaying{
+display:grid;
+grid-template-columns:250px 1fr;
+gap:25px;
+align-items:center;
+}
+
+.cover{
+width:250px;
+border-radius:15px;
+}
+
+.songtitle{
+font-size:2rem;
+margin-bottom:10px;
+}
+
+.artist{
+font-size:1.2rem;
+color:#ccc;
+}
+
+.listeners{
+font-size:1.5rem;
+color:var(--blue);
+margin-top:15px;
+}
+
+.schedule-item{
+padding:15px;
+border-bottom:1px solid #333;
+}
+
+.schedule-item:last-child{
+border:none;
+}
+
+.request-form input,
+.request-form textarea{
+width:100%;
+padding:12px;
+margin-top:10px;
+margin-bottom:15px;
+background:#222;
+border:none;
+color:white;
+border-radius:8px;
+}
+
+.request-form button{
+padding:12px 25px;
+background:var(--blue);
+border:none;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+.news-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px;
+}
+
+.news-card{
+background:#1b1b1b;
+padding:20px;
+border-radius:12px;
+}
+
+.dj-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.dj-card{
+background:#1b1b1b;
+padding:20px;
+text-align:center;
+border-radius:15px;
+}
+
+.dj-card img{
+width:120px;
+height:120px;
+border-radius:50%;
+object-fit:cover;
+margin-bottom:15px;
+}
+
+footer{
+background:#050505;
+padding:40px;
+text-align:center;
+margin-top:40px;
+}
+
+.social a{
+color:var(--blue);
+margin:0 10px;
+text-decoration:none;
+}
+
+@media(max-width:768px){
+
+.nowplaying{
+grid-template-columns:1fr;
+text-align:center;
+}
+
+.hero h1{
+font-size:2.5rem;
+}
+
+header{
+flex-direction:column;
+gap:15px;
+}
+
+}
+
+</style>
+</head>
+<body>
+
+<header>
+
+<div class="logo">🎙 BlueWave Radio</div>
+
+<nav>
+<a href="#live">Live</a>
+<a href="#schema">Programma</a>
+<a href="#nieuws">Nieuws</a>
+<a href="#djs">DJ's</a>
+<a href="#verzoek">Verzoek</a>
+</nav>
+
+</header>
+
+<section class="hero">
+
+<h1>BlueWave Radio</h1>
+
+<p>24/7 muziek, entertainment en live shows</p>
+
+<button class="live-button">
+🔴 Luister Live
+</button>
+
+</section>
+
+<div class="container">
+
+<section id="live">
+
+<h2 class="section-title">📻 Live Radio</h2>
+
+<div class="card player">
+
+<audio controls autoplay>
+<source src="https://jouw-stream-url-hier" type="audio/mpeg">
+</audio>
+
+</div>
+
+</section>
+
+<section>
+
+<h2 class="section-title">🎵 Nu Speelt</h2>
+
+<div class="card nowplaying">
+
+<img src="cover.jpg" class="cover">
+
+<div>
+
+<div class="songtitle">
+Titel van nummer
+</div>
+
+<div class="artist">
+Naam artiest
+</div>
+
+<div class="listeners">
+👥 128 luisteraars online
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="schema">
+
+<h2 class="section-title">📅 Programmaschema</h2>
+
+<div class="card">
+
+<div class="schedule-item">
+08:00 - Morning Show
+</div>
+
+<div class="schedule-item">
+12:00 - Lunch Mix
+</div>
+
+<div class="schedule-item">
+16:00 - Drive Time
+</div>
+
+<div class="schedule-item">
+20:00 - Evening Sessions
+</div>
+
+</div>
+
+</section>
+
+<section id="verzoek">
+
+<h2 class="section-title">🎶 Verzoeknummer</h2>
+
+<div class="card">
+
+<form class="request-form">
+
+<input type="text" placeholder="Je naam">
+
+<input type="text" placeholder="Artiest en nummer">
+
+<textarea rows="4" placeholder="Bericht"></textarea>
+
+<button type="submit">
+Versturen
+</button>
+
+</form>
+
+</div>
+
+</section>
+
+<section id="nieuws">
+
+<h2 class="section-title">📰 Nieuws</h2>
+
+<div class="news-grid">
+
+<div class="news-card">
+<h3>Nieuwe uitzending</h3>
+<p>Vanaf volgende week nieuwe avondshow.</p>
+</div>
+
+<div class="news-card">
+<h3>Zomeractie</h3>
+<p>Maak kans op leuke prijzen.</p>
+</div>
+
+<div class="news-card">
+<h3>Nieuwe DJ</h3>
+<p>Welkom bij het BlueWave team.</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="djs">
+
+<h2 class="section-title">🎙 Ons Team</h2>
+
+<div class="dj-grid">
+
+<div class="dj-card">
+<img src="dj1.jpg">
+<h3>DJ Mike</h3>
+<p>Morning Show</p>
+</div>
+
+<div class="dj-card">
+<img src="dj2.jpg">
+<h3>DJ Emma</h3>
+<p>Lunch Mix</p>
+</div>
+
+<div class="dj-card">
+<img src="dj3.jpg">
+<h3>DJ Alex</h3>
+<p>Night Sessions</p>
+</div>
+
+</div>
+
+</section>
+
+</div>
+
+<footer>
+
+<p>© 2026 BlueWave Radio</p>
+
+<div class="social">
+<a href="#">Facebook</a>
+<a href="#">Instagram</a>
+<a href="#">TikTok</a>
+</div>
+
+</footer>
+
+</body>
+</html>
