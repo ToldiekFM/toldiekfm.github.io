@@ -10,7 +10,130 @@
 <link rel="preconnect" href="https://stream.zeno.fm/2kkn8y9qrv8uv">
 
 <style>
+<!-- Voeg dit toe in de <head> sectie, na de bestaande <style> -->
+<style>
+/* ... je bestaande styles ... */
 
+.chat-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 350px;
+  height: 500px;
+  background: var(--card);
+  border: 2px solid var(--blue);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 40px rgba(0, 140, 255, 0.3);
+  z-index: 999;
+}
+
+.chat-header {
+  background: linear-gradient(90deg, #003399, #0099ff);
+  padding: 15px;
+  border-radius: 13px 13px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header h3 {
+  margin: 0;
+  color: white;
+}
+
+.chat-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-message {
+  padding: 10px 12px;
+  border-radius: 8px;
+  max-width: 85%;
+  word-wrap: break-word;
+}
+
+.chat-message.user {
+  background: var(--blue);
+  color: white;
+  align-self: flex-end;
+}
+
+.chat-message.other {
+  background: #222;
+  color: #ccc;
+  align-self: flex-start;
+}
+
+.chat-input-area {
+  padding: 12px;
+  border-top: 1px solid #333;
+  display: flex;
+  gap: 8px;
+}
+
+.chat-input-area input {
+  flex: 1;
+  padding: 10px;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+}
+
+.chat-input-area button {
+  padding: 10px 15px;
+  background: var(--blue);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.chat-toggle-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: var(--blue);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 140, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 998;
+}
+
+@media(max-width: 768px) {
+  .chat-container {
+    width: 90%;
+    height: 400px;
+    right: 5%;
+    bottom: 80px;
+  }
+}
+</style>
 :root{
 --blue:#008cff;
 --dark:#0a0a0a;
@@ -235,7 +358,70 @@ gap:15px;
 
 </style>
 </head>
-<body>
+  
+<!-- Live Chat Widget -->
+<button class="chat-toggle-btn" id="chatToggle">💬</button>
+
+<div class="chat-container" id="chatContainer" style="display: none;">
+  <div class="chat-header">
+    <h3>💬 Live Chat</h3>
+    <button class="chat-close" id="chatClose">&times;</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-input-area">
+    <input type="text" id="chatInput" placeholder="Type je bericht...">
+    <button id="chatSend">Send</button>
+  </div>
+</div>
+
+<script>
+const chatToggle = document.getElementById('chatToggle');
+const chatContainer = document.getElementById('chatContainer');
+const chatClose = document.getElementById('chatClose');
+const chatInput = document.getElementById('chatInput');
+const chatSend = document.getElementById('chatSend');
+const chatMessages = document.getElementById('chatMessages');
+
+// Toggle chat visibility
+chatToggle.addEventListener('click', () => {
+  chatContainer.style.display = chatContainer.style.display === 'none' ? 'flex' : 'none';
+  chatToggle.style.display = chatContainer.style.display === 'none' ? 'flex' : 'none';
+});
+
+chatClose.addEventListener('click', () => {
+  chatContainer.style.display = 'none';
+  chatToggle.style.display = 'flex';
+});
+
+// Send message
+function sendMessage() {
+  const message = chatInput.value.trim();
+  if (message === '') return;
+
+  // Voeg user message toe
+  const userMsg = document.createElement('div');
+  userMsg.className = 'chat-message user';
+  userMsg.textContent = message;
+  chatMessages.appendChild(userMsg);
+
+  chatInput.value = '';
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+
+  // Simuleer bot response
+  setTimeout(() => {
+    const botMsg = document.createElement('div');
+    botMsg.className = 'chat-message other';
+    botMsg.textContent = '👋 Bedankt voor je bericht! Het team zal zo snel mogelijk reageren.';
+    chatMessages.appendChild(botMsg);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }, 500);
+}
+
+chatSend.addEventListener('click', sendMessage);
+chatInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') sendMessage();
+});
+</script><body>
 
 <header>
 
