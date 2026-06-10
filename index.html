@@ -540,9 +540,9 @@ chatForm.addEventListener('submit', async (e) => {
   const name = document.getElementById('chatName').value;
   const message = document.getElementById('chatMessage').value;
   
-  // Send to Formspree
+  // Send to Formspree with your form ID
   try {
-    await fetch('https://formspree.io/f/xnqeqpby', {
+    await fetch('https://formspree.io/f/xbdekvna', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
