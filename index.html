@@ -194,6 +194,138 @@ margin:0 10px;
 text-decoration:none;
 }
 
+/* Live Chat Styles */
+.chat-bubble {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: var(--blue);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 140, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 998;
+  transition: all 0.3s ease;
+}
+
+.chat-bubble:hover {
+  transform: scale(1.1);
+}
+
+.chat-bubble.hidden {
+  display: none;
+}
+
+.chat-window {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 380px;
+  height: 550px;
+  background: var(--card);
+  border: 2px solid var(--blue);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 5px 40px rgba(0, 140, 255, 0.3);
+  z-index: 999;
+  display: none;
+}
+
+.chat-window.active {
+  display: flex;
+}
+
+.chat-header {
+  background: linear-gradient(90deg, #003399, #0099ff);
+  padding: 15px;
+  border-radius: 13px 13px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-header h3 {
+  margin: 0;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.chat-close {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.chat-form {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.chat-form input,
+.chat-form textarea {
+  padding: 12px;
+  background: #222;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 0.95rem;
+}
+
+.chat-form input::placeholder,
+.chat-form textarea::placeholder {
+  color: #888;
+}
+
+.chat-form textarea {
+  resize: vertical;
+  min-height: 80px;
+  max-height: 120px;
+}
+
+.chat-form button {
+  padding: 12px;
+  background: var(--blue);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s ease;
+}
+
+.chat-form button:hover {
+  background: #0066cc;
+}
+
+.chat-form .success {
+  color: #4ade80;
+  text-align: center;
+  padding: 10px;
+  background: rgba(74, 222, 128, 0.1);
+  border-radius: 8px;
+  display: none;
+}
+
+.chat-form .success.show {
+  display: block;
+}
+
 @media(max-width:768px){
 
 .nowplaying{
@@ -208,6 +340,13 @@ font-size:2.5rem;
 header{
 flex-direction:column;
 gap:15px;
+}
+
+.chat-window {
+  width: 90vw;
+  height: 500px;
+  right: 5vw;
+  bottom: 80px;
 }
 
 }
@@ -360,19 +499,77 @@ Versturen
 
 </footer>
 
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/1a1189cb0d578103992babf8e5efd5b465d76730/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
+<!-- Live Chat Widget -->
+<button class="chat-bubble" id="chatBubble">💬</button>
+
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <h3>💬 Live Chat</h3>
+    <button class="chat-close" id="chatClose">&times;</button>
+  </div>
+  <form class="chat-form" id="chatForm">
+    <input type="text" id="chatName" placeholder="Je naam" required>
+    <textarea id="chatMessage" placeholder="Je bericht..." required></textarea>
+    <button type="submit">Verzend 📨</button>
+    <div class="success" id="chatSuccess">✅ Bericht verzonden! Bedankt!</div>
+  </form>
+</div>
+
+<script>
+const chatBubble = document.getElementById('chatBubble');
+const chatWindow = document.getElementById('chatWindow');
+const chatClose = document.getElementById('chatClose');
+const chatForm = document.getElementById('chatForm');
+const chatSuccess = document.getElementById('chatSuccess');
+
+// Toggle chat window
+chatBubble.addEventListener('click', () => {
+  chatWindow.classList.toggle('active');
+  chatBubble.classList.toggle('hidden');
+});
+
+chatClose.addEventListener('click', () => {
+  chatWindow.classList.remove('active');
+  chatBubble.classList.remove('hidden');
+});
+
+// Submit chat form
+chatForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const name = document.getElementById('chatName').value;
+  const message = document.getElementById('chatMessage').value;
+  
+  // Send to Formspree
+  try {
+    await fetch('https://formspree.io/f/xnqeqpby', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        message: message,
+        timestamp: new Date().toLocaleString('nl-NL')
+      })
+    });
+    
+    // Show success message
+    chatSuccess.classList.add('show');
+    chatForm.style.opacity = '0.6';
+    
+    // Reset after 2 seconds
+    setTimeout(() => {
+      chatForm.reset();
+      chatSuccess.classList.remove('show');
+      chatForm.style.opacity = '1';
+    }, 2000);
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Fout bij verzenden. Probeer opnieuw!');
+  }
+});
 </script>
-<!--End of Tawk.to Script-->
 
 </body>
 </html>
